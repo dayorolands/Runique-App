@@ -31,7 +31,7 @@ fun IntroScreenRoot(
     onSignInClick : () -> Unit
 ) {
     IntroScreen(
-        onAction = {action ->
+        onAction = { action ->
             when(action) {
                 IntroAction.OnSignInClick -> onSignInClick()
                 IntroAction.OnSignUpClick -> onSignUpClick()

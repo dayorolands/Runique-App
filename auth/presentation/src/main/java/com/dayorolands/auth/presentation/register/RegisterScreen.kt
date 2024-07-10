@@ -100,7 +100,7 @@ fun RegisterScreen(
             }
             ClickableText(
                 text = annotatedString,
-                onClick = {offset ->
+                onClick = { offset ->
                     annotatedString.getStringAnnotations(
                         tag = "clickable_text",
                         start = offset,
@@ -114,9 +114,7 @@ fun RegisterScreen(
             RuniqueTextField(
                 state = state.email,
                 startIcon = EmailIcon,
-                endIcon = if(state.isEmailValid){
-                    CheckIcon
-                } else null,
+                endIcon = if(state.isEmailValid){ CheckIcon } else null,
                 hint = stringResource(id = R.string.example_email),
                 title = stringResource(id = R.string.email),
                 modifier = Modifier.fillMaxWidth(),
