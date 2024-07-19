@@ -1,3 +1,9 @@
 package com.dayorolands.auth.data
 
-data class RegisterRequest()
+import kotlinx.serialization.Serializable
+
+@Serializable
+data class RegisterRequest(
+    val email: String,
+    val password: String
+)

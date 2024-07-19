@@ -1,7 +1,8 @@
 package com.dayorolands.auth.presentation.register
 
-sealed interface RegisterAction {
-    data object OnTogglePasswordVisibilityClick: RegisterAction
-    data object OnLoginClick: RegisterAction
-    data object OnRegisterClick: RegisterAction
+import com.dayorolands.core.presentation.ui.UiText
+
+sealed interface RegisterEvent {
+    data object RegistrationSuccess: RegisterEvent
+    data class Error(val error: UiText): RegisterEvent
 }

@@ -3,6 +3,7 @@ package com.dayorolands.runique
 import android.app.Application
 import com.dayorolands.auth.data.di.authDataModule
 import com.dayorolands.auth.presentation.di.authViewModelModule
+import com.dayorolands.core.data.di.coreDataModule
 import com.dayorolands.runique.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -24,7 +25,8 @@ class RuniqueApp : Application() {
             modules(
                 authDataModule,
                 authViewModelModule,
-                appModule
+                appModule,
+                coreDataModule
             )
         }
     }
