@@ -8,17 +8,20 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.dayorolands.auth.presentation.intro.IntroScreenRoot
+import com.dayorolands.auth.presentation.login.LoginScreenRoot
 import com.dayorolands.auth.presentation.register.RegisterScreenRoot
 
 @Composable
 fun NavigationRoot(
-    navController: NavHostController
+    navController: NavHostController,
+    isLoggedIn: Boolean
 ) {
     NavHost(
         navController = navController,
-        startDestination = "auth"
+        startDestination = if(isLoggedIn)"run" else "auth"
     ) {
         authGraph(navHostController = navController)
+        runGraph(navHostController = navController)
     }
 }
 
@@ -45,7 +48,35 @@ private fun NavGraphBuilder.authGraph(navHostController : NavHostController) {
                 onSuccessfulRegistration = { navHostController.navigate("login") })
         }
         composable("login") {
-            Text(text = "Login")
+            LoginScreenRoot(
+                onLoginSuccess = {
+                    navHostController.navigate("run") {
+                        popUpTo("auth") {
+                            inclusive = true
+                        }
+                    }
+                },
+                onSignUpClick = {
+                    navHostController.navigate("register") {
+                        popUpTo("login") {
+                            inclusive = true
+                            saveState = true
+                        }
+                        restoreState = true
+                    }
+                }
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.runGraph(navHostController: NavHostController) {
+    navigation(
+        startDestination = "run_overview",
+        route = "run"
+    ) {
+        composable("run_overview") {
+            Text(text = "Run Overview")
         }
     }
 }
