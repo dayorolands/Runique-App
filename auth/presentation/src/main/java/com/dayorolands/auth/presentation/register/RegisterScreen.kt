@@ -156,7 +156,7 @@ fun RegisterScreen(
             RuniquePasswordTextField(
                 state = state.password,
                 isPasswordVisible = state.isPasswordVisible,
-                onTogglePassworVisibility = { onAction(RegisterAction.OnTogglePasswordVisibilityClick) },
+                onTogglePasswordVisibility = { onAction(RegisterAction.OnTogglePasswordVisibilityClick) },
                 hint = stringResource(id = R.string.passoword),
                 title = stringResource(id = R.string.passoword),
                 modifier = Modifier.fillMaxWidth()

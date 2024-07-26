@@ -52,7 +52,7 @@ import com.dayorolands.core.presentation.designsystems.RuniqueTheme
 fun RuniquePasswordTextField(
     state : TextFieldState,
     isPasswordVisible: Boolean,
-    onTogglePassworVisibility : () -> Unit,
+    onTogglePasswordVisibility : () -> Unit,
     hint: String,
     title: String?,
     modifier: Modifier = Modifier,
@@ -137,7 +137,7 @@ fun RuniquePasswordTextField(
                         }
                         innerBox()
                     }
-                    IconButton(onClick = onTogglePassworVisibility) {
+                    IconButton(onClick = onTogglePasswordVisibility) {
                         Icon(
                             imageVector = if(!isPasswordVisible) {
                                 EyeClosedIcon
@@ -164,7 +164,7 @@ private fun RuniquePasswordTextFieldPreview() {
         RuniquePasswordTextField(
             state = rememberTextFieldState(),
             isPasswordVisible = false,
-            onTogglePassworVisibility = {},
+            onTogglePasswordVisibility = {},
             hint = "example@test.com",
             title = "Email",
             modifier = Modifier
