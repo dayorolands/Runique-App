@@ -179,16 +179,14 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(
-                    id = R.string.contains_lower_case_character,
-                    UserDataValidator.MIN_PASSWORD_LENGTH
+                    id = R.string.contains_lower_case_character
                 ),
                 isValid = state.passwordValidationState.hasLowerCaseCharacter
             )
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(
-                    id = R.string.contains_upper_case_character,
-                    UserDataValidator.MIN_PASSWORD_LENGTH
+                    id = R.string.contains_upper_case_character
                 ),
                 isValid = state.passwordValidationState.hasUpperCaseCharacter
             )

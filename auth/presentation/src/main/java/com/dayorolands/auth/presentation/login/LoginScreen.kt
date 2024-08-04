@@ -182,7 +182,6 @@ fun LoginScreen(
                     modifier = Modifier.padding(16.dp)
                 )
             }
-
         }
     }
 

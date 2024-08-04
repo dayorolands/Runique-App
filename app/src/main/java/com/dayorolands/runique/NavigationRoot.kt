@@ -1,6 +1,5 @@
 package com.dayorolands.runique
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,6 +9,7 @@ import androidx.navigation.navigation
 import com.dayorolands.auth.presentation.intro.IntroScreenRoot
 import com.dayorolands.auth.presentation.login.LoginScreenRoot
 import com.dayorolands.auth.presentation.register.RegisterScreenRoot
+import com.dayorolands.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
 fun NavigationRoot(
@@ -18,7 +18,7 @@ fun NavigationRoot(
 ) {
     NavHost(
         navController = navController,
-        startDestination = if(isLoggedIn)"run" else "auth"
+        startDestination = if(isLoggedIn) "run" else "auth"
     ) {
         authGraph(navHostController = navController)
         runGraph(navHostController = navController)
@@ -76,7 +76,7 @@ private fun NavGraphBuilder.runGraph(navHostController: NavHostController) {
         route = "run"
     ) {
         composable("run_overview") {
-            Text(text = "Run Overview")
+            RunOverviewScreenRoot()
         }
     }
 }
