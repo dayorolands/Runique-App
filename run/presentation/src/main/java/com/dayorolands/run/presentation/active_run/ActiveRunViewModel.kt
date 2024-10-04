@@ -3,15 +3,18 @@ package com.dayorolands.run.presentation.active_run
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dayorolands.run.domain.RunningTracker
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
-import timber.log.Timber
+import kotlinx.coroutines.flow.stateIn
 
 class ActiveRunViewModel(
     private val runningTracker: RunningTracker
@@ -22,11 +25,23 @@ class ActiveRunViewModel(
 
     private val eventChannel = Channel<ActiveRunEvent>()
     val events = eventChannel.receiveAsFlow()
+    /* Snapshotflow converts a compose state to a normal state flow,
+    so we can react to changes of that particular state. */
+    private val shouldTrack = snapshotFlow { state.shouldTrack }
+        .stateIn(viewModelScope, SharingStarted.Lazily, state.shouldTrack)
+    private val hasLocationPermission = MutableStateFlow(false)
 
-    private val _hasLocationPermission = MutableStateFlow(false)
+    /*isTracking should only be true when shouldTrack has been set to true from the compose state
+    and the user has enabled location permission*/
+    private val isTracking = combine(
+        shouldTrack,
+        hasLocationPermission
+    ) { shouldTrack, hasPermission ->
+        shouldTrack && hasPermission
+    }.stateIn(viewModelScope, SharingStarted.Lazily, false)
 
     init {
-        _hasLocationPermission
+        hasLocationPermission
             .onEach { hasPermission ->
                 if(hasPermission) {
                     runningTracker.startObservingLocation()
@@ -36,10 +51,30 @@ class ActiveRunViewModel(
             }
             .launchIn(viewModelScope)
 
+        isTracking
+            .onEach { isTracking ->
+                runningTracker.setIsTrackingActiveRun(isTracking)
+            }
+            .launchIn(viewModelScope)
+
         runningTracker
             .currentLocation
-            .onEach { location ->
-                Timber.d("The location is $location")
+            .onEach {
+                state = state.copy(currentLocation = it?.location)
+            }
+            .launchIn(viewModelScope)
+
+        runningTracker
+            .runData
+            .onEach {
+                state = state.copy(runData = it)
+            }
+            .launchIn(viewModelScope)
+
+        runningTracker
+            .elapsedTime
+            .onEach {
+                state = state.copy(elapsedTime = it)
             }
             .launchIn(viewModelScope)
     }
@@ -50,13 +85,19 @@ class ActiveRunViewModel(
 
             }
             ActiveRunAction.OnResumeRunClick -> {
-
+                state = state.copy(shouldTrack = true)
             }
             ActiveRunAction.OnToggleRunClick -> {
-
+                state = state.copy(
+                    hasStatedRunning = true,
+                    shouldTrack = !state.shouldTrack
+                )
+            }
+            ActiveRunAction.OnBackClick -> {
+                state = state.copy(shouldTrack = false)
             }
             is ActiveRunAction.SubmitLocationPermissionInfo -> {
-                _hasLocationPermission.value = action.acceptedLocationPermission
+                hasLocationPermission.value = action.acceptedLocationPermission
                 state = state.copy(
                     showLocationRationale = action.showLocationRationale
                 )

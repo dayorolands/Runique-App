@@ -33,6 +33,7 @@ import com.dayorolands.core.presentation.designsystems.components.RuniqueScaffol
 import com.dayorolands.core.presentation.designsystems.components.RuniqueToolbar
 import com.dayorolands.run.presentation.R
 import com.dayorolands.run.presentation.active_run.components.RunDataCard
+import com.dayorolands.run.presentation.active_run.maps.TrackerMap
 import com.dayorolands.run.presentation.util.hasLocationPermission
 import com.dayorolands.run.presentation.util.hasNotificationPermission
 import com.dayorolands.run.presentation.util.shouldShowLocationPermissionRationale
@@ -134,6 +135,13 @@ fun ActiveRunScreen(
                 .fillMaxSize()
                 .background(MaterialTheme.colorScheme.surface)
         ){
+            TrackerMap(
+                isRunFinished = state.isRunFinished,
+                currentLocation = state.currentLocation,
+                locations = state.runData.locations,
+                onSnapShot = {},
+                modifier = Modifier.fillMaxSize()
+            )
             RunDataCard(
                 elapsedTime = state.elapsedTime,
                 runData = state.runData,
