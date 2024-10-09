@@ -156,7 +156,7 @@ fun RegisterScreen(
             RuniquePasswordTextField(
                 state = state.password,
                 isPasswordVisible = state.isPasswordVisible,
-                onTogglePassworVisibility = { onAction(RegisterAction.OnTogglePasswordVisibilityClick) },
+                onTogglePasswordVisibility = { onAction(RegisterAction.OnTogglePasswordVisibilityClick) },
                 hint = stringResource(id = R.string.passoword),
                 title = stringResource(id = R.string.passoword),
                 modifier = Modifier.fillMaxWidth()
@@ -179,16 +179,14 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(
-                    id = R.string.contains_lower_case_character,
-                    UserDataValidator.MIN_PASSWORD_LENGTH
+                    id = R.string.contains_lower_case_character
                 ),
                 isValid = state.passwordValidationState.hasLowerCaseCharacter
             )
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(
-                    id = R.string.contains_upper_case_character,
-                    UserDataValidator.MIN_PASSWORD_LENGTH
+                    id = R.string.contains_upper_case_character
                 ),
                 isValid = state.passwordValidationState.hasUpperCaseCharacter
             )

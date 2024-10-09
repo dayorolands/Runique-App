@@ -8,6 +8,7 @@ android {
 
 dependencies {
 
+    implementation(libs.bundles.koin)
     implementation(libs.androidx.core.ktx)
 
     implementation(libs.kotlinx.coroutines.core)
