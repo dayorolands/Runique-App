@@ -12,7 +12,7 @@ object Timer {
             var lastEmitTime = System.currentTimeMillis()
             while (true) {
                 delay(200L)
-                var currentTime = System.currentTimeMillis()
+                val currentTime = System.currentTimeMillis()
                 val elapsedTime = currentTime - lastEmitTime
                 emit(elapsedTime.milliseconds)
                 lastEmitTime = currentTime

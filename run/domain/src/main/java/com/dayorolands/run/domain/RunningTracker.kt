@@ -19,6 +19,7 @@ import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
 class RunningTracker(
     private val locationObserver: LocationObserver,
     private val applicationScope: CoroutineScope
@@ -26,7 +27,8 @@ class RunningTracker(
     private val _runData = MutableStateFlow(RunData())
     val runData = _runData.asStateFlow()
 
-    private val isTrackingActiveRun = MutableStateFlow(false)
+    private val _isTrackingActiveRun = MutableStateFlow(false)
+    val isTrackingActiveRun = _isTrackingActiveRun.asStateFlow()
     private val isObservingLocation = MutableStateFlow(false)
 
     private val _elapsedTime = MutableStateFlow(Duration.ZERO)
@@ -45,7 +47,18 @@ class RunningTracker(
         )
 
     init {
-        isTrackingActiveRun
+        _isTrackingActiveRun
+            .onEach { isTracking ->
+                if(isTracking.not()) {
+                    val newLocationList = buildList {
+                        addAll(runData.value.locations)
+                        add(emptyList<LocationTimeStamp>())
+                    }.toList()
+                    _runData.update { it.copy(
+                        locations = newLocationList
+                    ) }
+                }
+            }
             .flatMapLatest { isTracking ->
                 if(isTracking) {
                     Timer.timeAndEmit()
@@ -58,7 +71,7 @@ class RunningTracker(
 
         currentLocation
             .filterNotNull()
-            .combineTransform(isTrackingActiveRun) { location, isTracking ->
+            .combineTransform(_isTrackingActiveRun) { location, isTracking ->
                 if(isTracking) {
                     emit(location)
                 }
@@ -97,7 +110,7 @@ class RunningTracker(
     }
 
     fun setIsTrackingActiveRun(isTracking: Boolean) {
-        this.isTrackingActiveRun.value = isTracking
+        this._isTrackingActiveRun.value = isTracking
     }
 
     fun startObservingLocation(){
