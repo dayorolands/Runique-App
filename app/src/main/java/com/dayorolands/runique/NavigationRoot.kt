@@ -109,6 +109,12 @@ private fun NavGraphBuilder.runGraph(navHostController: NavHostController) {
                             ActiveRunService.createStopIntent(context)
                         )
                     }
+                },
+                onFinish = {
+                    navHostController.navigateUp()
+                },
+                onBack = {
+                    navHostController.navigateUp()
                 }
             )
         }
