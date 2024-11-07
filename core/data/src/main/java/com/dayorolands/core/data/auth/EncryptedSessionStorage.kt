@@ -24,7 +24,7 @@ class EncryptedSessionStorage(
     override suspend fun set(authInfo: AuthInfo?) {
         withContext(Dispatchers.IO) {
             if(authInfo == null) {
-                sharedPreferences.edit().remove(KEY_AUTH_INFO).commit()
+                sharedPreferences.edit().remove(KEY_AUTH_INFO).apply()
                 return@withContext
             }
 
