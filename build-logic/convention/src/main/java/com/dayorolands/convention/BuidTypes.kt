@@ -3,6 +3,7 @@ package com.dayorolands.convention
 import com.android.build.api.dsl.ApplicationExtension
 import com.android.build.api.dsl.BuildType
 import com.android.build.api.dsl.CommonExtension
+import com.android.build.api.dsl.DynamicFeatureExtension
 import com.android.build.api.dsl.LibraryExtension
 import com.android.build.api.variant.BuildConfigField
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
@@ -43,6 +44,18 @@ internal fun Project.configureBuildTypes(
                     }
                 }
             }
+            ExtensionType.DYNAMIC_FEATURE -> {
+                extensions.configure<DynamicFeatureExtension> {
+                    buildTypes {
+                        debug {
+                            configureDebugBuildType(apiKey)
+                        }
+                        release {
+                            configureReleaseBuildType(commonExtension, apiKey)
+                        }
+                    }
+                }
+            }
         }
     }
 }
@@ -59,7 +72,6 @@ private fun BuildType.configureReleaseBuildType(
     buildConfigField("String", "API_KEY", "\"$apiKey\"")
     buildConfigField("String", "BASE_URL", "\"https://runique.pl-coding.com:8080\"")
 
-    isMinifyEnabled = true
     proguardFiles(
         commonExtension.getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
