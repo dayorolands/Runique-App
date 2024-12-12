@@ -38,6 +38,7 @@ fun RunOverviewScreenRoot(
     modifier: Modifier = Modifier,
     onStartRunClick: () -> Unit,
     onLogoutClick: () -> Unit,
+    onAnalyticsClick: () -> Unit,
     runOverviewViewModel: RunOverviewViewModel = koinViewModel()
 ) {
     RunOverviewScreen(
@@ -47,6 +48,7 @@ fun RunOverviewScreenRoot(
             when(action){
                 RunOverviewAction.OnStartClick -> onStartRunClick()
                 RunOverviewAction.OnLogoutClick -> onLogoutClick()
+                RunOverviewAction.OnAnalyticsClick -> onAnalyticsClick()
                 else -> Unit
             }
             runOverviewViewModel.onAction(action)
@@ -55,7 +57,7 @@ fun RunOverviewScreenRoot(
 }
 
 @Composable
-fun RunOverviewScreen(
+private fun RunOverviewScreen(
     state: RunOverviewState,
     modifier: Modifier = Modifier,
     onAction : (RunOverviewAction) -> Unit

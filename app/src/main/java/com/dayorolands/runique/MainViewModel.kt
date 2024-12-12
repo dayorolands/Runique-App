@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dayorolands.core.domain.SessionStorage
+import io.ktor.http.CacheControl
 import kotlinx.coroutines.launch
 
 class MainViewModel(
@@ -23,5 +24,11 @@ class MainViewModel(
             )
             state = state.copy(isCheckingAuth = false)
         }
+    }
+
+    fun setAnalyticsDialogVisibility(isVisible: Boolean) {
+        state = state.copy(
+            showAnalyticsInstallDialog = isVisible
+        )
     }
 }
