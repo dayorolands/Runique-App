@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.runique.android.application.compose)
     alias(libs.plugins.runique.jvm.ktor)
     alias(libs.plugins.ksp)
+    id("io.kotzilla.kotzilla-plugin")
 }
 
 android {
@@ -22,6 +23,9 @@ android {
 }
 
 dependencies {
+    //Kotzilla
+    implementation(libs.io.kotzilla.sdk)
+
     // Coil
     implementation(libs.coil.compose)
 

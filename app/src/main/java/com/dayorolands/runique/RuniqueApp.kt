@@ -12,6 +12,8 @@ import com.dayorolands.run.network.di.networkModule
 import com.dayorolands.run.presentation.di.runPresentationModule
 import com.dayorolands.runique.di.appModule
 import com.google.android.play.core.splitcompat.SplitCompat
+import io.kotzilla.sdk.KotzillaSDK
+import io.kotzilla.sdk.analytics.koin.analyticsLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
@@ -27,12 +29,13 @@ class RuniqueApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        KotzillaSDK.setup(this@RuniqueApp)
         if(BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
 
         startKoin {
-            androidLogger()
+            analyticsLogger()
             androidContext(this@RuniqueApp)
             workManagerFactory()
             modules(
