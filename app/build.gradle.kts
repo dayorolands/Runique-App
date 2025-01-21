@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.runique.android.application.compose)
     alias(libs.plugins.runique.jvm.ktor)
     alias(libs.plugins.ksp)
+    id("io.kotzilla.kotzilla-plugin")
 }
 
 android {
@@ -18,9 +19,13 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    dynamicFeatures += setOf(":analytics:analytics_feature")
 }
 
 dependencies {
+    //Kotzilla
+    implementation(libs.io.kotzilla.sdk)
+
     // Coil
     implementation(libs.coil.compose)
 

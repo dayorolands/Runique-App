@@ -1,53 +1,55 @@
 [versions]
 
 # Project versions
+kotzillaPlugin = "0.13.5"
 projectApplicationId = "com.dayorolands.runique"
 projectVersionName = "1.0"
 projectMinSdkVersion = "25"
-projectTargetSdkVersion = "34"
-projectCompileSdkVersion = "34"
+projectTargetSdkVersion = "35"
+projectCompileSdkVersion = "35"
 projectVersionCode = "1"
 
-agp = "8.4.1"
-androidTools = "31.4.1"
+agp = "8.4.2"
+androidTools = "31.8.0"
 core = "1.10.3"
 playCore = "1.10.3"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.6.0"
 composeCompiler = "1.5.9"
-desugar_jdk_libs = "2.0.4"
-kotlin = "1.9.22"
+desugar_jdk_libs = "2.1.4"
+kotlin = "2.0.0"
+kotzilla="0.13.5"
 coreKtx = "1.12.0"
 junit = "4.13.2"
-junitVersion = "1.1.5"
-espressoCore = "3.5.1"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 activityCompose = "1.8.2"
 jetbrainsKotlinJvm = "1.9.22"
-ktor = "2.3.8"
-ktorClientLogging = "2.3.8"
+ktor = "2.3.12"
+ktorClientLogging = "2.3.12"
 ktorServerCallLogging = "2.3.7"
-koin = "3.5.3"
-lifecycleRuntimeKtx = "2.7.0"
+koin = "3.5.6"
+lifecycleRuntimeKtx = "2.8.7"
 composeBom = "2024.02.02"
 materialIconsExtended = "1.6.3"
 navigationCompose = "2.7.7"
 securityCryptoKtx = "1.1.0-alpha06"
 timber = "5.0.1"
-ksp = "1.9.22-1.0.17"
+ksp = "2.0.0-1.0.22"
 room = "2.6.1"
 appcompat = "1.6.1"
 material = "1.11.0"
 org-jetbrains-kotlin-jvm = "1.9.22"
 maps = "4.3.3"
-coroutines = "1.8.0"
-gmsLocation = "21.2.0"
+coroutines = "1.9.0"
+gmsLocation = "21.3.0"
 mapsUtils = "5.0.0"
 bson = "4.11.1"
-work = "2.9.0"
+work = "2.10.0"
 kotlinx-serialization = "1.6.3"
 secretsPlugin = "2.0.1"
-playServicesMaps = "18.2.0"
-annotation = "1.7.1"
+playServicesMaps = "19.0.0"
+annotation = "1.9.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -58,6 +60,7 @@ androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecyc
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotzilla-plugin = { module = "io.kotzilla:kotzilla-plugin", version.ref = "kotzillaPlugin" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
 androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
@@ -95,13 +98,13 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 google-maps-android-compose = { module = "com.google.maps.android:maps-compose", version.ref = "maps" }
 google-android-gms-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gmsLocation"}
 org-mongodb-bson = { module = "org.mongodb:bson", version.ref = "bson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils"}
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation" }
+io-kotzilla-sdk = { module = "io.kotzilla:kotzilla-sdk", version.ref = "kotzilla" }
 
 # Gradle
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
@@ -120,12 +123,16 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 room = { id = "androidx.room", version.ref = "room" }
 androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp" }
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin"}
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin"}
+
+
 runique-android-application = { id = "runique.android.application", version = "unspecified"}
 runique-android-application-compose = { id = "runique.android.application.compose", version = "unspecified"}
 runique-android-library = { id = "runique.android.library", version = "unspecified" }
 runique-android-library-compose = { id = "runique.android.library.compose", version = "unspecified"}
 runique-android-feature-ui = { id = "runique.android.feature.ui", version = "unspecified" }
 runique-android-room = { id = "runique.android.room", version = "unspecified" }
+runique-android-dynamic-feature = { id = "runique.android.dynamic.feature", version = "unspecified" }
 runique-jvm-library = { id = "runique.jvm.library", version = "unspecified" }
 runique-jvm-ktor = { id = "runique.jvm.ktor", version = "unspecified" }
 

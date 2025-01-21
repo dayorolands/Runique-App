@@ -187,6 +187,7 @@ fun LoginScreen(
 
 }
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 fun LoginScreenPreview() {

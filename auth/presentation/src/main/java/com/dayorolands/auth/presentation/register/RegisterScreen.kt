@@ -230,6 +230,7 @@ fun PasswordRequirement(
     }
 }
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 fun RegisterScreenPreview() {

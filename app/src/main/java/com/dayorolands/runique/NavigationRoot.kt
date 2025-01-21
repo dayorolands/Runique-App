@@ -18,14 +18,15 @@ import com.dayorolands.run.presentation.run_overview.RunOverviewScreenRoot
 @Composable
 fun NavigationRoot(
     navController: NavHostController,
-    isLoggedIn: Boolean
+    isLoggedIn: Boolean,
+    onAnalyticsClick: () -> Unit
 ) {
     NavHost(
         navController = navController,
         startDestination = if(isLoggedIn) "run" else "auth"
     ) {
         authGraph(navHostController = navController)
-        runGraph(navHostController = navController)
+        runGraph(navHostController = navController, onAnalyticsClick = onAnalyticsClick)
     }
 }
 
@@ -74,7 +75,10 @@ private fun NavGraphBuilder.authGraph(navHostController : NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.runGraph(navHostController: NavHostController) {
+private fun NavGraphBuilder.runGraph(
+    navHostController: NavHostController,
+    onAnalyticsClick: () -> Unit
+) {
     navigation(
         startDestination = "run_overview",
         route = "run"
@@ -90,7 +94,8 @@ private fun NavGraphBuilder.runGraph(navHostController: NavHostController) {
                             inclusive = true
                         }
                     }
-                }
+                },
+                onAnalyticsClick = onAnalyticsClick
             )
         }
         composable(
